@@ -1,4 +1,4 @@
-interface Users {
+interface User {
     id: number;
     firstName: string;
     lastName: string;
@@ -10,7 +10,7 @@ interface Users {
 }
 
 interface UsersResponse {
-    users: Users[];
+    users: User[];
     total: number;
     skip: number;
     limit: number;
