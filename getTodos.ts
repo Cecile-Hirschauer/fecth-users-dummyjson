@@ -1,3 +1,11 @@
+const BASE_URL = "https://dummyjson.com";
+
+async function listDummy<T>(endpoint: string): Promise<T[]> {
+    const response = await fetch(`${BASE_URL}/${endpoint}`);
+    const data = await response.json();
+    return data[endpoint] as T[];
+}
+
 type Todo = {
     id: number;
     todo: string;
@@ -5,31 +13,37 @@ type Todo = {
     userId: number;
 };
 
-type TodosResponse = {
-    todos: Todo[];
-    total: number;
-    skip: number;
-    limit: number;
+type Product = {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    category: string;
 };
 
-const BASE_URL = "https://dummyjson.com";
+type Quote = {
+    id: number;
+    quote: string;
+    author: string;
+};
 
-async function getTodos(): Promise<Todo[]> {
-    const response = await fetch(`${BASE_URL}/todos`);
-    const data: TodosResponse = await response.json();
-    return data.todos;
-}
-
-async function getTodo(id: number): Promise<Todo> {
-    const response = await fetch(`${BASE_URL}/todos/${id}`);
-    const data: Todo = await response.json();
-    return data;
-}
+type DummyUser = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+};
 
 (async () => {
-    const todos = await getTodos();
-    console.log("Tous les todos:", todos.slice(0, 3));
+    const todos = await listDummy<Todo>('todos');
+    console.log("Todos:", todos.slice(0, 2));
 
-    const todo = await getTodo(1);
-    console.log("Todo #1:", todo);
+    const products = await listDummy<Product>('products');
+    console.log("Products:", products.slice(0, 2));
+
+    const quotes = await listDummy<Quote>('quotes');
+    console.log("Quotes:", quotes.slice(0, 2));
+
+    const users = await listDummy<DummyUser>('users');
+    console.log("Users:", users.slice(0, 2));
 })();
