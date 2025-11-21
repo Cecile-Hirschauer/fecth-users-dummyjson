@@ -1,4 +1,4 @@
-interface User {
+interface Users {
     id: number;
     firstName: string;
     lastName: string;
@@ -10,7 +10,7 @@ interface User {
 }
 
 interface UsersResponse {
-    users: User[];
+    users: Users[];
     total: number;
     skip: number;
     limit: number;
@@ -26,7 +26,6 @@ const fetchUsers = async (): Promise<UsersResponse> => {
     return response.json();
 };
 
-// Client typé pour l'API
 const userClient = {
     getAll: fetchUsers,
 
@@ -43,7 +42,6 @@ const userClient = {
     }
 };
 
-// Exemple d'utilisation
 (async () => {
     try {
         const user = await userClient.getById(1);
